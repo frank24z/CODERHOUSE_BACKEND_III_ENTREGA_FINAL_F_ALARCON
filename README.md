@@ -52,15 +52,14 @@ npm install
 
 ---
 
-### Paso 3: Configurar las Variables de Entorno (.env)
+### Paso 3: Copiar el Archivo `.env`
 
-Crea un archivo llamado `.env` en la raíz del proyecto.  
-Pega el siguiente contenido, reemplazando los valores con tus credenciales de MongoDB:
+Se informara el .env a utilizar. Siendo de la siguiente forma:
 
 ```env
 MONGO_URI=mongodb+srv://tu_usuario:tu_contraseña@tu_cluster.mongodb.net/test
 PORT=8080
-JWT_SECRET=coderBackendSecret
+JWT_SECRET=Secret
 ```
 
 ---
