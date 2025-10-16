@@ -1,125 +1,197 @@
 # Proyecto Final - Backend III
 
-Bienvenido al proyecto final del curso de Backend. Esta guía te llevará paso a paso para instalar y ejecutar la aplicación de dos maneras diferentes: localmente en tu computadora o usando Docker.
+
+Esta guía es el paso a paso para instalar, probar y ejecutar la aplicación de dos maneras diferentes:  
+**localmente en tu computadora** o  
+**usando Docker**.
+
+La aplicación implementa una **API RESTful** para la gestión de **Usuarios**, **Mascotas** y **Adopciones**.  
+Incluye generación de datos de prueba (mocking), tests automáticos y documentación interactiva con **Swagger**.
 
 ---
 
-## Entorno de Trabajo Recomendado
-Para seguir esta guía, te recomendamos usar **Visual Studio Code (VS Code)**, un editor de código gratuito y muy popular.
-- [Descargar Visual Studio Code](https://code.visualstudio.com/)
+## Características Principales
+
+- **API Completa:** Endpoints para gestionar **Usuarios**, **Mascotas** y **Adopciones**.  
+- **Mocking de Datos:** Rutas para generar datos de prueba sin afectar la base de datos principal.  
+- **Documentación Interactiva:** API documentada con **Swagger**, accesible desde el navegador.  
+- **Tests Funcionales:** Suite de pruebas automáticas con **Jest** y **Supertest**.  
+- **Dockerización:** La aplicación está empaquetada en una imagen de **Docker** para un despliegue rápido y consistente.  
 
 ---
 
-## Método 1: Instalación Local
+## Método 1: Instalación y ejecución Local
 
-Este método es ideal si quieres modificar el código y ver los cambios.
+Este método es ideal si quieres explorar el código, modificarlo y ver los cambios al instante.
+
+### Prerrequisitos
+
+- [Node.js](https://nodejs.org/) (versión **18 o superior**)  
+- [Git](https://git-scm.com/downloads)  
+- Una base de datos de [MongoDB Atlas](https://www.mongodb.com/)
+
+---
 
 ### Paso 1: Obtener el Código Fuente
 
-Primero, necesitas una copia del proyecto en tu computadora.
+```bash
+git clone https://github.com/frank24z/CODERHOUSE_BACKEND_III_ENTREGA_FINAL_F_ALARCON.git
+cd CODERHOUSE_BACKEND_III_ENTREGA_FINAL_F_ALARCON
+```
 
-1.  **Instala Git:** Si no lo tienes, descarga e instala [Git](https://git-scm.com/downloads).
-2.  **Abre una Terminal:**
-    - En **Windows**, busca "PowerShell" o "Terminal" en el menú de inicio.
-    - En **Mac** o **Linux**, busca la aplicación "Terminal".
-3.  **Clona el Repositorio:** En la terminal, navega a la carpeta donde guardas tus proyectos (usando el comando `cd`) y ejecuta:
-    ```bash
-    git clone [https://github.com/frank24z/CODERHOUSE_BACKEND_III_ENTREGA_FA_FINAL.git](https://github.com/frank24z/CODERHOUSE_BACKEND_III_ENTREGA_FA_FINAL.git)
-    ```
-4.  **Abre el Proyecto en VS Code:**
-    - Abre VS Code.
-    - Ve a `Archivo > Abrir Carpeta...` (File > Open Folder...).
-    - Selecciona la carpeta `CODERHOUSE_BACKEND_III_ENTREGA_FA_FINAL` que acabas de clonar.
-
-### **Paso 2: Abrir la Terminal Integrada en VS Code**
-
-Todos los siguientes comandos se ejecutarán dentro de VS Code.
-
-1.  En el menú superior de VS Code, ve a `Terminal > Nuevo terminal` (Terminal > New Terminal).
-2.  Se abrirá un panel en la parte inferior. Esa es tu terminal, ya ubicada en la carpeta correcta del proyecto.
-
-### **Paso 3: Instalar las Dependencias del Proyecto**
-
-Las "dependencias" son las herramientas y librerías que el código necesita para funcionar y para ser probado.
-
-1.  **Instalar dependencias de producción:**
-    Este comando instala todo lo que la aplicación necesita para correr.
-    ```bash
-    npm install
-    ```
-2.  **Instalar dependencias de desarrollo (para los tests):**
-    Este comando instala las herramientas para poder ejecutar las pruebas automáticas.
-    ```bash
-    npm install --save-dev jest supertest
-    ```
-3.  Espera a que ambos comandos terminen. Se creará una carpeta `node_modules`. ¡No la borres!
-
-### **Paso 4: Configurar las Variables de Entorno**
-
-Necesitas un archivo especial para guardar tus contraseñas y otros secretos de forma segura.
-
-1.  En el explorador de archivos de VS Code (el panel de la izquierda), haz clic derecho en un espacio vacío y selecciona `Nuevo archivo` (New File).
-2.  Nombra el archivo exactamente `.env` (empieza con un punto y no tiene extensión).
-3.  Abre el archivo `.env` y pega el siguiente contenido, reemplazando los valores con tus credenciales de MongoDB:
-    ```
-    MONGO_URI=mongodb+srv://tu_usuario:tu_contraseña@tu_cluster...
-    PORT=8080
-    ```
-
-### **Paso 5: Ejecutar los Tests**
-
-Antes de iniciar el servidor, es una buena práctica verificar que todo el código funciona correctamente.
-
-1.  En la terminal de VS Code, ejecuta:
-    ```bash
-    npm test
-    ```
-2.  Verás los resultados de las pruebas. Si todo está en verde (`PASS`), ¡excelente!
-
-### **Paso 6: Iniciar la Aplicación**
-
-Ahora que todo está configurado y probado, podemos iniciar el servidor.
-
-1.  En la terminal de VS Code, ejecuta:
-    ```bash
-    npm run dev
-    ```
-2.  Verás mensajes de éxito como `✅ Servidor escuchando en el puerto 8080` y `✅ Conectado a la base de datos...`.
-3.  ¡Listo! La aplicación está funcionando. Puedes acceder a ella a través de `http://localhost:8080` con una herramienta como Postman.
+Abre el proyecto en **Visual Studio Code**:  
+> Archivo → Abrir carpeta... → selecciona la carpeta del proyecto
 
 ---
 
-## Método 2: Ejecución con Docker 
+### Paso 2: Instalar las Dependencias
 
-Este método es ideal si solo quieres ejecutar la aplicación sin instalar Node.js ni configurar un entorno de desarrollo.
+```bash
+npm install
+```
 
-### **Paso 1: Instalar Docker**
+---
 
-1.  Descarga e instala **Docker Desktop** desde su [sitio web oficial](https://www.docker.com/products/docker-desktop/).
-2.  Abre la aplicación Docker Desktop y espera a que el ícono de la ballena en tu barra de tareas se ponga verde.
+### Paso 3: Configurar las Variables de Entorno (.env)
 
-### **Paso 2: Descargar la Imagen de la Aplicación**
+Crea un archivo llamado `.env` en la raíz del proyecto.  
+Pega el siguiente contenido, reemplazando los valores con tus credenciales de MongoDB:
 
-Una "imagen" es la aplicación ya empaquetada y lista para correr.
+```env
+MONGO_URI=mongodb+srv://tu_usuario:tu_contraseña@tu_cluster.mongodb.net/test
+PORT=8080
+JWT_SECRET=coderBackendSecret
+```
 
-1.  Abre una terminal 
-2.  Ejecuta el siguiente comando para descargar la imagen desde Docker Hub:
-    ```bash
-    docker pull frank24z/proyecto_final_fa
-    ```
+---
 
-### **Paso 3: Se debe copiar el archivo de Configuración `.env`**
+### Paso 4: Ejecutar los Tests
 
+Antes de iniciar el servidor, es recomendable verificar que todo funciona correctamente.
 
-### **Paso 4: Ejecutar la Aplicación**
+```bash
+npm test
+```
 
-1.  Abre una terminal y navega hasta la carpeta que creaste en el paso anterior (ej. `cd Desktop/mi-app-docker`).
-2.  Ejecuta el siguiente comando. Este comando iniciará la aplicación dentro de un contenedor aislado.
-    ```bash
-    docker run -p 8080:8080 --env-file ./.env --name mi-app-final frank24z/proyecto_final_fa
-    ```
+Si todos los resultados aparecen en **verde (PASS)**, ¡estás listo para continuar! ✅
 
-### **Paso 5: Acceder a la Aplicación**
+---
 
-1.  Verás los logs del servidor en tu terminal.
-2.  La API estará funcionando y accesible en `http://localhost:8080`.
+### Paso 5: Iniciar la Aplicación
+
+Ejecuta el servidor en modo desarrollo (reinicio automático con cada cambio):
+
+```bash
+npm run dev
+```
+
+Deberías ver mensajes como estos en la terminal:
+
+```
+✅ Servidor escuchando en el puerto 8080
+✅ Conectado a la base de datos...
+```
+
+---
+
+### Paso 6: Explorar la Documentación de la API con Swagger
+
+Con el servidor corriendo, abre tu navegador en:  
+http://localhost:8080/api-docs
+
+Ahí podrás explorar y probar la API de forma interactiva.
+
+---
+
+## Método 2: Ejecución con Docker (Fácil y Rápido)
+
+Ideal si solo deseas ejecutar la aplicación sin instalar Node.js ni configurar nada localmente.
+
+### Prerrequisitos
+
+- Tener [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalado y ejecutándose.
+
+---
+
+### Paso 1: Descargar la Imagen desde Docker Hub
+
+```bash
+docker pull frank24z/proyecto_final_fa
+```
+
+---
+
+### Paso 2: Copiar el Archivo `.env`
+
+Se informara el .env a utilizar. Siendo de la siguiente forma:
+
+```env
+MONGO_URI=mongodb+srv://tu_usuario:tu_contraseña@tu_cluster.mongodb.net/test
+PORT=8080
+JWT_SECRET=Secret
+```
+
+---
+
+### Paso 3: Ejecutar la Aplicación en un Contenedor
+
+Abre una terminal, navega hasta la carpeta donde creaste el `.env` y ejecuta:
+
+```bash
+docker run -p 8080:8080 --env-file ./.env --name mi-app-final frank24z/proyecto_final_fa
+```
+
+---
+
+### Paso 4: Acceder a la Aplicación
+
+Una vez corriendo, verás los logs del servidor en la terminal.
+
+La API estará disponible en:  
+http://localhost:8080
+
+Y la documentación Swagger en:  
+http://localhost:8080/api-docs
+
+---
+
+## Estructura del Proyecto
+
+```
+├── src/
+│   ├── app.js                # Punto de entrada principal
+│   ├── dao/                  # Acceso a datos
+│   ├── models/               # Modelos de MongoDB (Mongoose)
+│   ├── routers/              # Rutas de la API
+│   ├── tests/                # Pruebas automatizadas
+├── Dockerfile
+├── package.json
+└── README.md
+```
+
+---
+
+## Endpoints Principales
+
+| Método | Ruta                        | Descripción                          |
+|:-------|:----------------------------|:-------------------------------------|
+| GET    | `/api/users`                | Lista todos los usuarios             |
+| GET    | `/api/pets`                 | Lista todas las mascotas             |
+| GET    | `/api/adoptions`            | Lista todas las adopciones           |
+| POST   | `/api/adoptions`            | Crea una nueva adopción              |
+| GET    | `/api/mocks/mockingusers`   | Genera usuarios de prueba (mock)     |
+| GET    | `/api/mocks/mockingpets`    | Genera mascotas de prueba (mock)     |
+| POST   | `/api/mocks/generateData`   | Inserta datos de prueba en la BD     |
+
+---
+
+## Tecnologías Utilizadas
+
+- **Node.js** + **Express**  
+- **MongoDB Atlas** 
+- **Swagger UI Express**  
+- **Jest** + **Supertest**  
+- **Docker**  
+- **dotenv**, **faker.js**, **bcrypt**, **jsonwebtoken**
+
+---
