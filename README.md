@@ -24,7 +24,7 @@ Incluye generación de datos de prueba (mocking), tests automáticos y documenta
 
 Este método es ideal si quieres explorar el código, modificarlo y ver los cambios al instante.
 
-### Prerrequisitos
+### Pre requisitos
 
 - [Node.js](https://nodejs.org/) (versión **18 o superior**)  
 - [Git](https://git-scm.com/downloads)  
