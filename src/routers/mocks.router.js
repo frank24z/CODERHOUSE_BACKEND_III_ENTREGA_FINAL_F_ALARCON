@@ -6,32 +6,201 @@ import Pet from '../models/pet.model.js';
 
 /**
  * @swagger
- * components:
- * schemas:
- * User:
- * type: object
- * required:
- * - first_name
- * - last_name
- * - email
- * - password
- * properties:
- * _id:
- * type: string
- * description: ID autogenerado por MongoDB.
- * first_name:
- * type: string
- * description: Nombre del usuario.
- * last_name:
- * type: string
- * description: Apellido del usuario.
- * email:
- * type: string
- * description: Email del usuario.
- * role:
- * type: string
- * description: Rol del usuario (user o admin).
+ * tags:
+ *   - name: Users
+ *     description: Operaciones sobre usuarios
+ *   - name: Pets
+ *     description: Operaciones sobre mascotas
+ *   - name: Adoptions
+ *     description: Operaciones sobre adopciones
+ *   - name: Mocks
+ *     description: Endpoints para generar/consultar datos de prueba
  */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - first_name
+ *         - last_name
+ *         - email
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: ID autogenerado por MongoDB.
+ *           example: 64f1c2a3b9d8f0123abc4567
+ *         first_name:
+ *           type: string
+ *           description: Nombre del usuario.
+ *           example: Juan
+ *         last_name:
+ *           type: string
+ *           description: Apellido del usuario.
+ *           example: Pérez
+ *         email:
+ *           type: string
+ *           format: email
+ *           description: Email del usuario.
+ *           example: juan.perez@example.com
+ *         role:
+ *           type: string
+ *           description: Rol del usuario.
+ *           enum: [user, admin]
+ *           example: user
+ *
+ *     Pet:
+ *       type: object
+ *       required:
+ *         - name
+ *         - specie
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: ID autogenerado por MongoDB.
+ *           example: 64f1c2a3b9d8f0123abc4568
+ *         name:
+ *           type: string
+ *           description: Nombre de la mascota.
+ *           example: Copito
+ *         specie:
+ *           type: string
+ *           description: Especie de la mascota.
+ *           example: Gato
+ *
+ *     Adoption:
+ *       type: object
+ *       required:
+ *         - owner
+ *         - pet
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: ID autogenerado por MongoDB.
+ *           example: 64f1c2a3b9d8f0123abc4569
+ *         owner:
+ *           type: string
+ *           description: ID del usuario que adopta (ObjectId).
+ *           example: 64f1c2a3b9d8f0123abc4567
+ *         pet:
+ *           type: string
+ *           description: ID de la mascota adoptada (ObjectId).
+ *           example: 64f1c2a3b9d8f0123abc4568
+ *
+ *     ErrorResponse:
+ *       type: object
+ *       properties:
+ *         status:
+ *           type: string
+ *           example: error
+ *         message:
+ *           type: string
+ *           example: Ocurrió un error inesperado
+ */
+
+/**
+ * @swagger
+ * /api/mocks/mockingusers:
+ *   get:
+ *     summary: Genera un listado de usuarios mock en memoria (sin persistir).
+ *     tags: [Mocks]
+ *     responses:
+ *       '200':
+ *         description: Listado de usuarios mock.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 payload:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/User'
+ *       '500':
+ *         description: Error interno.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+
+/**
+ * @swagger
+ * /api/mocks/mockingpets:
+ *   get:
+ *     summary: Genera un listado de mascotas mock en memoria (sin persistir).
+ *     tags: [Mocks]
+ *     responses:
+ *       '200':
+ *         description: Listado de mascotas mock.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 payload:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Pet'
+ *       '500':
+ *         description: Error interno.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+
+/**
+ * @swagger
+ * /api/mocks/generateData:
+ *   post:
+ *     summary: Inserta usuarios y mascotas mock en la base de datos.
+ *     tags: [Mocks]
+ *     requestBody:
+ *       required: false
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               users:
+ *                 type: integer
+ *                 description: Cantidad de usuarios a insertar.
+ *                 example: 10
+ *               pets:
+ *                 type: integer
+ *                 description: Cantidad de mascotas a insertar.
+ *                 example: 5
+ *     responses:
+ *       '201':
+ *         description: Datos mock generados exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 message:
+ *                   type: string
+ *                   example: Se insertaron 10 usuarios y 5 mascotas.
+ *       '500':
+ *         description: Error interno.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+
 
 const router = Router();
 

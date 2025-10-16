@@ -10,23 +10,6 @@ import adoptionRouter from './routers/adoption.router.js';
 import User from './models/user.model.js';
 import Pet from './models/pet.model.js';
 
-/**
- * @swagger
- * /api/users:
- * get:
- * summary: Obtiene todos los usuarios
- * tags: [Users]
- * responses:
- * "200":
- * description: Se obtuvo el listado de usuarios correctamente.
- * content:
- * application/json:
- * schema:
- * type: array
- * items:
- * $ref: '#/components/schemas/User'
- */
-
 dotenv.config();
 
 const app = express();
@@ -57,6 +40,63 @@ app.use('/api-docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 app.use('/api/mocks', mocksRouter); 
 app.use('/api/adoptions', adoptionRouter); 
 
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     summary: Obtiene todos los usuarios
+ *     tags: [Users]
+ *     responses:
+ *       '200':
+ *         description: Listado de usuarios obtenido correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 payload:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/User'
+ *       '500':
+ *         description: Error interno.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+
+/**
+ * @swagger
+ * /api/pets:
+ *   get:
+ *     summary: Obtiene todas las mascotas
+ *     tags: [Pets]
+ *     responses:
+ *       '200':
+ *         description: Listado de mascotas obtenido correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 payload:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Pet'
+ *       '500':
+ *         description: Error interno.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
 
 
 app.get('/api/users', async (req, res) => {
@@ -77,8 +117,10 @@ app.get('/api/pets', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`✅ Servidor escuchando en el puerto ${PORT}`);
-});
-
 export default app;
+
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(PORT, () => {
+        console.log(`✅ Servidor escuchando en el puerto ${PORT}`);
+    });
+}
