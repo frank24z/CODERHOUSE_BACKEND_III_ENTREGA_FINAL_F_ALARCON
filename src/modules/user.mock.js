@@ -13,7 +13,7 @@ const createRandomUser = () => {
         age: faker.number.int({ min: 18, max: 80 }),
         password: hashedPassword, 
         role: faker.helpers.arrayElement(['user', 'admin']),
-        pets: [], // Array de mascotas vacío
+        pets: [], 
     };
 };
 
